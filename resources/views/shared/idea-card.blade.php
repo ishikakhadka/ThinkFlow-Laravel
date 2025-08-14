@@ -4,8 +4,8 @@
 
               <div class="d-flex align-items-center">
 
-                  <img  style="width:50px; height:50px; object-fit:cover;"  class="me-2 avatar-sm rounded-circle" src="{{ $idea->user->getImageUrl() }}"
-                      alt="{{ $idea->user->name }}">
+                  <img style="width:50px; height:50px; object-fit:cover;" class="me-2 avatar-sm rounded-circle"
+                      src="{{ $idea->user->getImageUrl() }}" alt="{{ $idea->user->name }}">
                   <div>
 
                       <h5 class="card-title mb-0"><a href="{{ route('users.show', $idea->user->id) }}">
@@ -14,27 +14,30 @@
                   </div>
 
               </div>
-              @if (auth()->id() == $idea->user_id)
-                  <div class="d-flex gap-2">
 
-                      <div>
-                          <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}"
-                              onsubmit="return confirm('Are you sure?')">
+              <div class="d-flex gap-2">
+                  <form method="GET" action="{{ route('ideas.show', $idea->id) }}">
+                      @csrf
+                      <button class="btn btn-primary btn-sm">VIEW</button>
+                  </form>
+                 @auth()
+                      {{-- @can('idea.edit', $idea) --}}
+                      @can('update', $idea)
+                          <form method="GET" action="{{ route('ideas.edit', $idea->id) }}">
                               @csrf
-                              @method('DELETE')
-                              <button class="btn btn-danger btn-sm">X</button>
+                              <button class="btn btn-success btn-sm">EDIT</button>
                           </form>
-                      </div>
-                      <form method="GET" action="{{ route('ideas.show', $idea->id) }}">
+
+                      <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}"
+                          onsubmit="return confirm('Are you sure?')">
                           @csrf
-                          <button class="btn btn-primary btn-sm">VIEW</button>
+                          @method('DELETE')
+                          <button class="btn btn-danger btn-sm">X</button>
                       </form>
-                      <form method="GET" action="{{ route('ideas.edit', $idea->id) }}">
-                          @csrf
-                          <button class="btn btn-success btn-sm">EDIT</button>
-                      </form>
-                  </div>
-              @endif
+                      @endcan
+                  @endauth
+              </div>
+
           </div>
       </div>
 

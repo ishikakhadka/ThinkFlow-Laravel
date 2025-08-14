@@ -19,7 +19,7 @@ class TrendingController extends Controller
             ->take(10)
             ->get();
 
-     
+
 
         if (request()->has('search')) {
             $ideas = $ideas->where('content', 'like', "%" . request()->get('search') . "%");

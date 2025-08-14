@@ -34,7 +34,13 @@
 
         </ul>
     </div>
-    <div class="card-footer text-center py-2">
+   <div class="card-footer text-center py-2">
+    <a class="btn btn-sm btn-link" href="{{ route('lang', 'en') }}">EN</a>
+    <a class="btn btn-sm btn-link" href="{{ route('lang', 'es') }}">ES</a>
+    <a class="btn btn-sm btn-link" href="{{ route('lang', 'fr') }}">FR</a>
+</div>
+
+    <div class="card-footer text-center py-2 gap-4">
         <a class="nav-link {{ Route::is('profile') ? 'text-white bg-primary rounded' : '' }}"
             href="{{ route('profile') }}">
             <i class="fas fa-user"></i> View Profile

@@ -18,7 +18,7 @@
 
             @include('shared.submit-ideas')
             <hr>
-            <h4 class="text-center mb-4">TOP 10 TRENDING POSTS.</h4>
+            <h4 class="text-center mb-4 text-danger">TOP 10 TRENDING POSTS.</h4>
             @forelse ($ideas as $idea)
                 <div class="mt-3">
                     @include('shared.idea-card')

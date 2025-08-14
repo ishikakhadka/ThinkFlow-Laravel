@@ -19,4 +19,27 @@ class CommentController extends Controller
 
         return redirect()->route("ideas.show", $idea->id)->with("success", "Comment posted successfully!!");
     }
+
+
+
+
+    public function destroy(Idea $idea, Comment $comment)
+    {
+
+        if ($comment->idea_id !== $idea->id) {
+            abort(404, 'Comment not found for this idea.');
+        }
+
+
+        if ($comment->user_id !== auth()->id()&& $idea->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $comment->delete();
+
+        return back()->with('success', 'Comment deleted successfully!');
+    }
+
+
+
 }

@@ -29,26 +29,23 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea)
     {
-if (auth()->id(    )!=$idea->user_id){
-            abort(404, "Not authorized");
-}
+        // $this->authorize("idea.delete", $idea);
+        $this->authorize("delete", $idea);
         $idea->delete();
         return redirect()->route('dashboard');
     }
     public function edit(Idea $idea)
     {
-        if (auth()->id() != $idea->user_id) {
-            abort(404, "Not authorized");
-        }
+        // $this->authorize("idea.edit", $idea); =>Gates
+
+        $this->authorize("update", $idea);
         return redirect()->route('ideas.show', ['idea' => $idea->id, 'editing' => 1]);
     }
 
     public function update(Request $request, Idea $idea)
     {
-
-        if (auth()->id() != $idea->user_id) {
-            abort(404, "Not authorized");
-        }
+        // $this->authorize("idea.edit", $idea); =>Gates
+        $this->authorize("update", $idea);
        $validated= $request->validate([
             'content' => 'required|min:2|max:240',
         ]);

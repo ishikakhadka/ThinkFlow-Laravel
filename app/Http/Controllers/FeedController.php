@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class FeedController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
+
     public function __invoke(Request $request)
     {
         $user = auth()->user();
@@ -18,9 +16,9 @@ class FeedController extends Controller
         $ideas = Idea::whereIn("user_id",$followingIds)->latest();
 
         if (request()->has('search')) {
-            $ideas = $ideas->where('content', 'like', "%" . request()->get('search') . "%");
+            $ideas = $ideas->search(request('search'));
         }
-        return view('dashboard', [
+        return view('shared.feed', [
             'ideas' => $ideas->paginate(5),
         ]);
     }

@@ -17,5 +17,5 @@
 @endauth
 
 @guest
-<h4>Login to share yours ideas </h4>
+<h4 class="text-primary">{{__('ideas.login_to_share')}} </h4>
 @endguest

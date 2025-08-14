@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Idea extends Model
 {
+
+    protected $withCount = ["likes"];
     protected $guarded=["id","created_at","updated_at"];
     // protected $fillable = ['content', 'likes'];
     use HasFactory;
@@ -22,5 +24,10 @@ class Idea extends Model
     {
         return $this->belongsToMany(User::class, 'idea_like')->withTimestamps();
     }
+
+    public function scopeSearch($query,$search=" "){
+        $query->where('content', 'like', "%" .$search. "%");
+    }
+
     }
 
